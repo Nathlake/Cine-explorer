@@ -150,7 +150,7 @@ st.markdown(
 def load_movie_data(json_file):
     with open(json_file, "r", encoding="utf-8") as file:
         return json.load(file)
-url = 'https://raw.githubusercontent.com/Nathlake/Cine-explorer/main/data/df_ready.parquet'
+url = 'https://raw.githubusercontent.com/Nathlake/Cine-explorer/main/df_ready.parquet'
 
 # Téléchargement du fichier depuis GitHub
 response = requests.get(url)
