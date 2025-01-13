@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import requests
 import json
 from st_click_detector import click_detector
 import streamlit as st
