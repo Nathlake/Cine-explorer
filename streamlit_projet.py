@@ -10,8 +10,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, MultiLabelBinarizer, StandardScaler
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.neighbors import NearestNeighbors
-import gdown
-import os
 
 
 # Image fond écran :
@@ -152,16 +150,17 @@ st.markdown(
 def load_movie_data(json_file):
     with open(json_file, "r", encoding="utf-8") as file:
         return json.load(file)
+url = 'https://raw.githubusercontent.com/Nathlake/Cine-explorer/main/data/df_ready.parquet'
 
-url = "https://github.com/Nathlake/Cine-explorer/raw/main/df_ready.parquet"
+# Téléchargement du fichier depuis GitHub
 response = requests.get(url)
 
-# Enregistrez le fichier téléchargé localement
-with open("df_ready.parquet", "wb") as f:
-    f.write(response.content)
-
-# Lire le fichier Parquet
-data = pd.read_parquet("df_ready.parquet")
+# Vérifiez si le téléchargement a réussi
+if response.status_code == 200:
+    # Chargez le fichier Parquet dans un DataFrame pandas
+    data = pd.read_parquet(BytesIO(response.content))
+else:
+    print(f"Erreur de téléchargement du fichier: {response.status_code}")
  
 movie_data = load_movie_data("movie_data_with_videos.json")
 
