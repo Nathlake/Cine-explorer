@@ -12,6 +12,8 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
+st.set_page_config(page_title="Streamlit", layout="wide")
+
 # Image fond écran :
 @st.cache_data
 def load_image_from_google_drive(file_id):
@@ -31,8 +33,6 @@ try:
     # Utilisez image_base64 dans votre code CSS pour définir l'image de fond
 except Exception as e:
     st.error(f"Erreur lors du chargement de l'image de fond : {e}")
-
-st.set_page_config(page_title="Streamlit", layout="wide")
 
 # Personnalisation CSS :
 st.markdown(
