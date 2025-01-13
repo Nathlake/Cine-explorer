@@ -22,11 +22,13 @@ def load_image_from_google_drive(file_id):
     else:
         raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
 
-# ID du fichier Google Drive
-file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz" 
+# ID du fichier Google Drive extrait du lien partagé
+file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"
 
 try:
     image_base64 = load_image_from_google_drive(file_id)
+    # Utiliser image_base64 dans votre code CSS ou pour afficher l'image
+    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image de fond" style="width:100%">', unsafe_allow_html=True)
 except Exception as e:
     st.error(f"Erreur lors du chargement de l'image de fond : {e}")
     
