@@ -17,7 +17,7 @@ def load_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
 
-image_path = "C:/Users/Nath/Desktop/Projets Wild Code School/Projet 2/Power BI/45600487.jpg"  
+image_path = "https://raw.githubusercontent.com/Nathlake/Cine-explorer/a4b8ac6d000995fd117f3847d1c62d1d7d57a121/image_path.jpg"  
 image_base64 = load_image(image_path)
 
 st.set_page_config(page_title="Streamlit", layout="wide")
