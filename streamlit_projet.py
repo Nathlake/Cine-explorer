@@ -150,8 +150,9 @@ def load_movie_data(json_file):
     with open(json_file, "r", encoding="utf-8") as file:
         return json.load(file)
 
+url = https://github.com/Nathlake/Cine-explorer/raw/main/df_ready.parquet"
 movie_data = load_movie_data("movie_data_with_videos.json")
-data = pd.read_parquet('data/df_ready.parquet')
+data = pd.read_parquet(url)
 
 with open('dict_voisins.json', 'r') as f:
     dict_voisins = json.load(f)
