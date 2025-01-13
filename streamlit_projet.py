@@ -151,18 +151,16 @@ def load_movie_data(json_file):
     with open(json_file, "r", encoding="utf-8") as file:
         return json.load(file)
 
-# Lien direct pour télécharger le fichier depuis Google Drive
-file_id = '1cEo3sSPwn4y3FKnEYEaPK5f2PWHTUtgX'
-url = f'https://drive.google.com/uc?export=download&id={file_id}'
+url = 'https://github.com/Nathlake/Cine-explorer/raw/fa727bbdf2b36763d407c41375a209d04a2a6375/df_ready.parquet'
 
-# Télécharger le fichier depuis Google Drive
+# Télécharger le fichier depuis GitHub
 response = requests.get(url)
 
-# Vérifiez si la demande a réussi (code 200)
+# Vérifier si la demande a réussi (code 200)
 if response.status_code == 200:
     # Charger le fichier Parquet dans pandas
     data = pd.read_parquet(BytesIO(response.content))
-    print(data.head())  # Affiche les premières lignes du dataframe
+    print(data.head())  # Afficher les premières lignes du dataframe
 else:
     print(f"Erreur lors du téléchargement : {response.status_code}")
  
