@@ -151,7 +151,7 @@ def load_movie_data(json_file):
         return json.load(file)
 
 movie_data = load_movie_data("movie_data_with_videos.json")
-data = pd.read_parquet(r'C:\Users\Nath\Desktop\Projets Wild Code School\Projet 2\projet2\df_ready.parquet')
+data = pd.read_parquet('data/df_ready.parquet')
 
 with open('dict_voisins.json', 'r') as f:
     dict_voisins = json.load(f)
