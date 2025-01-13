@@ -16,8 +16,20 @@ def load_movie_data(json_file):
 
 # Chargement des données
 movie_data = load_movie_data("movie_data_with_videos.json")
-data = pd.read_parquet('data/df_ready.parquet')
 
+# URL brute du fichier Parquet sur GitHub
+url = 'https://github.com/Nathlake/Cine-explorer/raw/fa727bbdf2b36763d407c41375a209d04a2a6375/df_ready.parquet'
+
+# Télécharger le fichier depuis GitHub
+response = requests.get(url)
+
+# Vérifier si la demande a réussi (code 200)
+if response.status_code == 200:
+    # Charger le fichier Parquet dans pandas
+    data = pd.read_parquet(BytesIO(response.content))
+    print(data.head())  # Afficher les premières lignes du dataframe
+else:
+    print(f"Erreur lors du téléchargement : {response.status_code}")
 
 # Fonction pour rechercher un film par ID
 def trouver_id(film_id: int, movie_data: list = movie_data):
