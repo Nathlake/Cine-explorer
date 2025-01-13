@@ -13,25 +13,24 @@ from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
 # Image fond écran :
-def load_image_from_google_drive(file_id):
-    url = f"https://drive.google.com/uc?export=download&id={file_id}"
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        return base64.b64encode(response.content).decode()
-    else:
-        raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
+def load_image(image_path):
+    try:
+        with open(image_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode()
+    except FileNotFoundError:
+        st.error(f"L'image n'a pas été trouvée à l'emplacement : {image_path}")
+        return None
 
-# ID du fichier Google Drive
-file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"  # Remplacez par l'ID du fichier
+# Chemin de l'image dans Streamlit Cloud
+image_path = "/workspaces/Cine-explorer/image_path.jpg"
 
-# Charger l'image depuis Google Drive et la convertir en base64
-try:
-    image_base64 = load_image_from_google_drive(file_id)
-    # Afficher l'image dans le markdown
-    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis Google Drive" />', unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Erreur: {e}")
+# Vérifier si le fichier existe
+if os.path.exists(image_path):
+    image_base64 = load_image(image_path)
+    if image_base64:
+        st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis Streamlit Cloud" />', unsafe_allow_html=True)
+else:
+    st.error(f"Le fichier n'existe pas à l'emplacement : {image_path}")
     
 st.set_page_config(page_title="Streamlit", layout="wide")
 
