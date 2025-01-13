@@ -24,14 +24,6 @@ def load_image_from_google_drive(file_id):
 
 # ID du fichier sur Google Drive
 file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"  # Remplacez par l'ID de votre fichier
-
-# Charger l'image depuis Google Drive et la convertir en base64
-try:
-    image_base64 = load_image_from_google_drive(file_id)
-    # Afficher l'image dans le markdown
-    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis Google Drive" />', unsafe_allow_html=True)
-except Exception as e:
-    st.error(f"Erreur lors du chargement de l'image : {e}")
     
 st.set_page_config(page_title="Streamlit", layout="wide")
 
