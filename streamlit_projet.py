@@ -151,6 +151,7 @@ def load_movie_data(json_file):
     with open(json_file, "r", encoding="utf-8") as file:
         return json.load(file)
 
+# URL brute du fichier Parquet sur GitHub
 url = 'https://github.com/Nathlake/Cine-explorer/raw/fa727bbdf2b36763d407c41375a209d04a2a6375/df_ready.parquet'
 
 # Télécharger le fichier depuis GitHub
