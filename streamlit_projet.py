@@ -134,7 +134,7 @@ st.markdown(
     }}
 
     .custom-title {{
-        font-size: 48px !important;
+        font-size: 42px !important;
         font-weight: bold !important;
         color: white !important; /* S'assurer que les titres sont en blanc */
         background-color: transparent !important;
