@@ -32,6 +32,7 @@ try:
 except Exception as e:
     st.error(f"Erreur: {e}")
 
+
 st.set_page_config(page_title="Streamlit", layout="wide")
 
 # Personnalisation CSS :
