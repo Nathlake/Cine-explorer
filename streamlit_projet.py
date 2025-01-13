@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, MultiLabelBinarizer, StandardScaler
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.neighbors import NearestNeighbors
-import io
+import gdown
 
 
 # Image fond écran :
@@ -152,15 +152,16 @@ def load_movie_data(json_file):
     with open(json_file, "r", encoding="utf-8") as file:
         return json.load(file)
 
-url = "https://github.com/Nathlake/Cine-explorer/raw/main/df_ready.parquet"
-response = requests.get(url)
+file_id = "1cEo3sSPwn4y3FKnEYEaPK5f2PWHTUtgX"
 
-# Vérifiez si la demande a réussi
-if response.status_code == 200:
-    # Chargez le fichier Parquet en mémoire
-    data = pd.read_parquet(io.BytesIO(response.content))
-else:
-    print(f"Erreur lors du téléchargement du fichier : {response.status_code}")
+# Construire l'URL de téléchargement direct
+url = f"https://drive.google.com/uc?id={file_id}"
+
+# Télécharger le fichier Parquet depuis Google Drive
+gdown.download(url, 'df_ready.parquet', quiet=False)
+
+# Lire le fichier Parquet téléchargé
+data = pd.read_parquet('df_ready.parquet')
     
 movie_data = load_movie_data("movie_data_with_videos.json")
 
