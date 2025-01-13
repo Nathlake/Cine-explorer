@@ -14,21 +14,23 @@ from io import BytesIO
 import base64
 
 # Image fond écran :
-def load_image_from_url(image_url):
-    response = requests.get(image_url)
+def load_image_from_google_drive(file_id):
+    url = f"https://drive.google.com/uc?export=download&id={file_id}"
+    response = requests.get(url)
     
     if response.status_code == 200:
         return base64.b64encode(response.content).decode()
     else:
         raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
 
-# URL de l'image sur GitHub
-image_url = "https://raw.githubusercontent.com/Nathlake/Cine-explorer/a4b8ac6d000995fd117f3847d1c62d1d7d57a121/image_path.jpg"
+# ID du fichier sur Google Drive
+file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"  # Remplacez par l'ID de votre fichier
 
-# Charger l'image depuis l'URL et la convertir en base64
+# Charger l'image depuis Google Drive et la convertir en base64
 try:
-    image_base64 = load_image_from_url(image_url)
-    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis GitHub" />', unsafe_allow_html=True)
+    image_base64 = load_image_from_google_drive(file_id)
+    # Afficher l'image dans le markdown
+    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis Google Drive" />', unsafe_allow_html=True)
 except Exception as e:
     st.error(f"Erreur: {e}")
 
