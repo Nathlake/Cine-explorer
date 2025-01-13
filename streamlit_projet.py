@@ -405,7 +405,7 @@ def is_valid_image_url(url):
 import requests
 
 def get_film_poster_url(film_id):
-    api_key = "" 
+    api_key = st.secrets["tmdb_api_key"]
     base_url = "https://api.themoviedb.org/3/movie/"
     
     response = requests.get(f"{base_url}{film_id}?api_key={api_key}&language=fr")
