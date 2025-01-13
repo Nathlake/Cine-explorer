@@ -9,6 +9,7 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MultiLabelBinarizer, OneHotEncoder, StandardScaler
 from sklearn.preprocessing import FunctionTransformer
+from io import BytesIO
 
 # Fonction pour charger les données du fichier JSON
 def load_movie_data(json_file):
