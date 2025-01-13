@@ -13,17 +13,13 @@ from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
 # Image fond écran :
-def load_image_from_google_drive(file_id):
-    url = f"https://drive.google.com/uc?export=download&id={file_id}"
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        return base64.b64encode(response.content).decode()
-    else:
-        raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
+file_id_image = '1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz'
 
-# ID du fichier sur Google Drive
-file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"  # Remplacez par l'ID de votre fichier
+# Lien de téléchargement direct
+url_image = f'https://drive.google.com/uc?export=download&id={file_id_image}'
+
+# Télécharger le fichier depuis Google Drive
+response = requests.get(url_image)
     
 st.set_page_config(page_title="Streamlit", layout="wide")
 
