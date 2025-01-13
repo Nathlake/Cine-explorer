@@ -13,13 +13,25 @@ from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
 # Image fond écran :
-file_id_image = '1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz'
+def load_image_from_google_drive(file_id):
+    url = f"https://drive.google.com/uc?export=download&id={file_id}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        return base64.b64encode(response.content).decode()
+    else:
+        raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
 
-# Lien de téléchargement direct
-url_image = f'https://drive.google.com/uc?export=download&id={file_id_image}'
+# ID du fichier Google Drive
+file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"  # Remplacez par l'ID du fichier
 
-# Télécharger le fichier depuis Google Drive
-response = requests.get(url_image)
+# Charger l'image depuis Google Drive et la convertir en base64
+try:
+    image_base64 = load_image_from_google_drive(file_id)
+    # Afficher l'image dans le markdown
+    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis Google Drive" />', unsafe_allow_html=True)
+except Exception as e:
+    st.error(f"Erreur: {e}")
     
 st.set_page_config(page_title="Streamlit", layout="wide")
 
