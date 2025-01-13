@@ -153,11 +153,15 @@ def load_movie_data(json_file):
     with open(json_file, "r", encoding="utf-8") as file:
         return json.load(file)
 
-file_id = "1cEo3sSPwn4y3FKnEYEaPK5f2PWHTUtgX"
-url = f"https://drive.google.com/uc?id={file_id}"
-parquet_file_path = 'df_ready.parquet'
-gdown.download(url, parquet_file_path, quiet=False)
-data = pd.read_parquet(parquet_file_path)
+url = "https://github.com/Nathlake/Cine-explorer/raw/main/df_ready.parquet"
+response = requests.get(url)
+
+# Enregistrez le fichier téléchargé localement
+with open("df_ready.parquet", "wb") as f:
+    f.write(response.content)
+
+# Lire le fichier Parquet
+data = pd.read_parquet("df_ready.parquet")
  
 movie_data = load_movie_data("movie_data_with_videos.json")
 
