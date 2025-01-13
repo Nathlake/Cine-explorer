@@ -13,6 +13,7 @@ from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
 # Image fond écran :
+@st.cache_data
 def load_image_from_google_drive(file_id):
     url = f"https://drive.google.com/uc?export=download&id={file_id}"
     response = requests.get(url)
@@ -22,15 +23,15 @@ def load_image_from_google_drive(file_id):
     else:
         raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
 
-    # ID du fichier Google Drive
-    file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"
+# ID du fichier Google Drive
+file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"
 
-    try:
-        image_base64 = load_image_from_google_drive(file_id)
-        # Utilisez image_base64 dans votre code CSS pour définir l'image de fond
-    except Exception as e:
-        st.error(f"Erreur lors du chargement de l'image de fond : {e}")
-    
+try:
+    image_base64 = load_image_from_google_drive(file_id)
+    # Utilisez image_base64 dans votre code CSS pour définir l'image de fond
+except Exception as e:
+    st.error(f"Erreur lors du chargement de l'image de fond : {e}")
+
 st.set_page_config(page_title="Streamlit", layout="wide")
 
 # Personnalisation CSS :
