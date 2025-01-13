@@ -10,6 +10,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, MultiLabelBinarizer, StandardScaler
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.neighbors import NearestNeighbors
+import io
+
 
 # Image fond écran :
 def load_image(image_path):
@@ -151,8 +153,16 @@ def load_movie_data(json_file):
         return json.load(file)
 
 url = "https://github.com/Nathlake/Cine-explorer/raw/main/df_ready.parquet"
+response = requests.get(url)
+
+# Vérifiez si la demande a réussi
+if response.status_code == 200:
+    # Chargez le fichier Parquet en mémoire
+    data = pd.read_parquet(io.BytesIO(response.content))
+else:
+    print(f"Erreur lors du téléchargement du fichier : {response.status_code}")
+    
 movie_data = load_movie_data("movie_data_with_videos.json")
-data = pd.read_parquet(url)
 
 with open('dict_voisins.json', 'r') as f:
     dict_voisins = json.load(f)
