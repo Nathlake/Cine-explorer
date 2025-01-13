@@ -1,4 +1,5 @@
 streamlit==1.41.0
 pandas
 numpy
+st_click_detector
 aiohttp==3.9.1
