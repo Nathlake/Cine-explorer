@@ -11,6 +11,7 @@ from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, MultiLabelBinar
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.neighbors import NearestNeighbors
 import gdown
+import os
 
 
 # Image fond écran :
@@ -153,16 +154,11 @@ def load_movie_data(json_file):
         return json.load(file)
 
 file_id = "1cEo3sSPwn4y3FKnEYEaPK5f2PWHTUtgX"
-
-# Construire l'URL de téléchargement direct
 url = f"https://drive.google.com/uc?id={file_id}"
-
-# Télécharger le fichier Parquet depuis Google Drive
-gdown.download(url, 'df_ready.parquet', quiet=False)
-
-# Lire le fichier Parquet téléchargé
-data = pd.read_parquet('df_ready.parquet')
-    
+parquet_file_path = 'df_ready.parquet'
+gdown.download(url, parquet_file_path, quiet=False)
+data = pd.read_parquet(parquet_file_path)
+ 
 movie_data = load_movie_data("movie_data_with_videos.json")
 
 with open('dict_voisins.json', 'r') as f:
