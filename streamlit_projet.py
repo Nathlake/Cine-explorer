@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import json
+import requests
 from tools_app import get_clicked
 from tools_app import trouver_id, films_actor, films_director
 from datetime import datetime
