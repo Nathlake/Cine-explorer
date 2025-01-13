@@ -11,14 +11,26 @@ from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, MultiLabelBinar
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
+import base64
 
 # Image fond écran :
-def load_image(image_path):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode()
+def load_image_from_url(image_url):
+    response = requests.get(image_url)
+    
+    if response.status_code == 200:
+        return base64.b64encode(response.content).decode()
+    else:
+        raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
 
-image_path = "https://raw.githubusercontent.com/Nathlake/Cine-explorer/a4b8ac6d000995fd117f3847d1c62d1d7d57a121/image_path.jpg"  
-image_base64 = load_image(image_path)
+# URL de l'image sur GitHub
+image_url = "https://raw.githubusercontent.com/Nathlake/Cine-explorer/a4b8ac6d000995fd117f3847d1c62d1d7d57a121/image_path.jpg"
+
+# Charger l'image depuis l'URL et la convertir en base64
+try:
+    image_base64 = load_image_from_url(image_url)
+    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis GitHub" />', unsafe_allow_html=True)
+except Exception as e:
+    st.error(f"Erreur: {e}")
 
 st.set_page_config(page_title="Streamlit", layout="wide")
 
