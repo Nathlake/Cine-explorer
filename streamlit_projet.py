@@ -13,23 +13,22 @@ from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
 # Image fond écran :
-def load_image_from_google_drive(file_id):
-    url = f"https://drive.google.com/uc?export=download&id={file_id}"
-    response = requests.get(url)
+def load_image_from_github(image_url):
+    response = requests.get(image_url)
     
     if response.status_code == 200:
-        return base64.b64encode(response.content).decode()
+        return base64.b64encode(response.content).decode()  # Retourne l'image encodée en base64
     else:
         raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
 
-# ID du fichier sur Google Drive
-file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"  # Remplacez par l'ID de votre fichier
+# URL brute de l'image sur GitHub
+image_url = "https://raw.githubusercontent.com/Nathlake/Cine-explorer/b00a3bb9bdbac8e8dc6c84b43612fac83ed077c9/image_path.jpg"
 
-# Charger l'image depuis Google Drive et la convertir en base64
+# Charger l'image depuis GitHub et la convertir en base64
 try:
-    image_base64 = load_image_from_google_drive(file_id)
-    # Afficher l'image dans le markdown
-    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis Google Drive" />', unsafe_allow_html=True)
+    image_base64 = load_image_from_github(image_url)
+    # Afficher l'image dans Streamlit
+    st.markdown(f'<img src="data:image/jpeg;base64,{image_base64}" alt="Image depuis GitHub" />', unsafe_allow_html=True)
 except Exception as e:
     st.error(f"Erreur: {e}")
 
