@@ -11,7 +11,6 @@ from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, MultiLabelBinar
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
-import base64
 
 # Image fond écran :
 def load_image_from_google_drive(file_id):
