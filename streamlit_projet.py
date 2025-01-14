@@ -13,7 +13,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
-st.set_page_config(page_title="Streamlit", layout="wide")
+st.set_page_config(page_title="Ciné-Explorer", layout="wide")
 
 # Image fond écran :
 @st.cache_data
