@@ -294,13 +294,8 @@ def afficher_films(categorie, annee=None):
             unique_key = f"film_{categorie}_{film_id}_{idx}"
 
             with col:
-                clicked = get_clicked(
-                    movie_data,
-                    [film_title],
-                    film_id,
-                    categorie,
-                    key_=True
-                )[1]
+                if get_clicked(movie_data, film_title, film_id, categorie):
+                st.rerun()
                 
                 if clicked:
                     st.session_state.selected_film = film_title
