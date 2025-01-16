@@ -308,7 +308,7 @@ def afficher_films(categorie, annee=None):
                     st.rerun()
 
             # Ajouter titre du film en dessous de l'image
-                st.markdown(f"""
+                    st.markdown(f"""
         <div style='display: flex; justify-content: center; width: 100%;'>
             <p style='
                 text-align: center; 
