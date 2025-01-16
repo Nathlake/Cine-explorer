@@ -44,97 +44,16 @@ def trouver_id(film_id: int, movie_data: list = movie_data):
 
 # Fonction de gestion du clic sur un film
 
-def get_clicked(movie_data: list, film_title: str, idx: int, categorie: str, annee: int = None, key_: bool = False):
-    """
-    Gère le clic sur un film pour une liste de films avec filtrage possible par année, par genre.
-    """
-
-    # Filtrage par année si une année est spécifiée
-    if annee:
-        movie_data = [film for film in movie_data if film.get("year") == annee]
-
-    # Trouver le film par son index
-    film = trouver_id(idx, movie_data)
-    if not film:
-        print(f"Aucun film trouvé pour l'ID : {idx}")
-        return None, False
+def get_clicked(movie_data: list, film_title: str, film_id: int, categorie: str, annee: int = None):
+    poster_url = get_poster_url(film_id)
     
-    film_id = film.get("id", None)
-    film_title = film.get("title", "Titre inconnu")
-    poster_path = film.get('poster_path', None)
+    if st.image(poster_url, use_column_width=True, caption=film_title):
+        st.session_state.clicked_film = film_title
+        st.session_state.clicked_film_id = film_id
+        st.session_state.page = "details"
+        return True
+    return False
 
-    # image manquante
-    if poster_path:
-        poster_url = f"https://image.tmdb.org/t/p/w500{poster_path}"
-    else:
-        print(f"Image manquante pour le film : {film_title}")
-        poster_url = "https://via.placeholder.com/150x225.png?text=Image+Manquante&bg=transparent"
-
-    # Clé unique sur 'id'
-    unique_key = f"film_{categorie}_{film_id}_{idx}"
-
-    content = f"""
-    <div style="
-        text-align: center; 
-        cursor: pointer; 
-        display: inline-flex;  
-        flex-direction: column;  
-        justify-content: flex-start;  
-        align-items: center;  
-        margin: 8px 0 0 0; /* Ajout d'une marge en haut */
-        padding: 0; 
-        background-color: transparent;
-        border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        width: calc(100% - 16px);
-        overflow: hidden;
-        line-height: 0;
-        position: relative;
-    ">
-        <a id="{unique_key}" href="#" style="
-            display: block; 
-            background-color: transparent; 
-            line-height: 0;
-            width: 100%; 
-            padding: 0; 
-            margin: 0;
-            overflow: hidden;
-        ">
-            <img src="{poster_url}" 
-                 style="
-                    width: 100%; 
-                    height: 100%; /* Permet à l'image de remplir tout le conteneur */
-                    border-radius: 15px;
-                    object-fit: cover; /* Cela permet de rogner l'image pour qu'elle remplisse le conteneur sans déformer */
-                    vertical-align: bottom;
-                    margin: 0;
-                    padding: 0;
-                    display: block;
-                    overflow: hidden; /* Assure qu'il n'y a pas de débordement */
-                 "/>
-        </a>
-        <div style="
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 5px;
-        ">
-            <p style="
-                color: white; 
-                font-size: 14px; 
-                font-weight: bold; 
-                margin: 0; 
-                padding: 0;
-                line-height: 1.2;  
-                text-align: center;
-            ">        
-        </div>
-    </div>
-    """
-
-    return idx, click_detector(content, key=unique_key)
 
 # Fonction de recherche des films par réalisateur
 def films_director(name: str, data: pd.DataFrame = data) -> list:
