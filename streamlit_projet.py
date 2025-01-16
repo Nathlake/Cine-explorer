@@ -305,6 +305,7 @@ def afficher_films(categorie, annee=None):
                 if clicked:
                     st.session_state.selected_film = film_title
                     st.session_state.page = "details"
+                    st.rerun()
 
             # Ajouter titre du film en dessous de l'image
                 st.markdown(f"""
