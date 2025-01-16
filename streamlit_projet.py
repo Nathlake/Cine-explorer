@@ -295,7 +295,7 @@ def afficher_films(categorie, annee=None):
 
             with col:
                 if get_clicked(movie_data, film_title, film_id, categorie):
-                st.rerun()
+                    st.rerun()
                 
                 if clicked:
                     st.session_state.selected_film = film_title
