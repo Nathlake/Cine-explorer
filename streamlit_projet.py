@@ -15,6 +15,19 @@ from io import BytesIO
 
 st.set_page_config(page_title="Ciné-Explorer", layout="wide")
 
+st.markdown(
+    """
+    <script>
+        var body = window.parent.document.querySelector(".main");
+        var scrollTop = body.scrollTop;
+        window.parent.addEventListener("load", function() {
+            body.scrollTop = scrollTop;
+        });
+    </script>
+    """,
+    unsafe_allow_html=True
+)
+
 # Image fond écran :
 @st.cache_data
 def load_image_from_google_drive(file_id):
