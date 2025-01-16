@@ -432,7 +432,7 @@ def is_valid_image_url(url):
 
 
 import requests
-
+@st.cache_data
 def get_film_poster_url(film_id):
     api_key = st.secrets["tmdb_api_key"]
     base_url = "https://api.themoviedb.org/3/movie/"
