@@ -191,8 +191,7 @@ with open('dict_voisins.json', 'r') as f:
     dict_voisins = json.load(f)
 dict_voisins = {int(key): value for key, value in dict_voisins.items()}
 
-films_list = sorted(data['title'].tolist())
-
+films_list = sorted([film for film in data['title'].tolist() if film.lower().startswith('a')])
 
 DEFAULT_IMAGE_URL = "https://via.placeholder.com/150x225.png?text=Image+non+disponible"
 
