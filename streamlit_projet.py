@@ -214,7 +214,7 @@ def get_poster_url(film_id):
     return DEFAULT_IMAGE_URL
 
 # Page Accueil :
-
+@st.cache_data
 def afficher_films(categorie, annee=None):
     genre_color_class = {
         "Drama": "top-10-drama",
