@@ -314,20 +314,18 @@ def afficher_films(categorie, annee=None):
                 # Ajouter un lien pour rediriger vers la page de détails du film
                 st.markdown(f"""
                 <div style='display: flex; justify-content: center; width: 100%;'>
-                    <a href="movie?movie_id={film_id}" style="text-decoration: none; color: inherit;" target="_self">
-                        <img src='https://image.tmdb.org/t/p/w200{poster_path}' class='movie-poster'>
-                        <p style='
-                            text-align: center; 
-                            font-size: 16px; 
-                            margin-top: 5px; 
-                            font-weight: bold; 
-                            max-width: calc(100% - 16px);
-                            word-wrap: break-word;
-                            line-height: 1.2;
-                        '>
-                            {film_title}
-                        </p>
-                    </a>
+                    <img src='https://image.tmdb.org/t/p/w200{poster_path}' class='movie-poster'>
+                    <p style='
+                        text-align: center; 
+                        font-size: 16px; 
+                        margin-top: 5px; 
+                        font-weight: bold; 
+                        max-width: calc(100% - 16px);
+                        word-wrap: break-word;
+                        line-height: 1.2;
+                    '>
+                        {film_title}
+                    </p>
                 </div>
                 """, unsafe_allow_html=True)
 
