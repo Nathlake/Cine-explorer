@@ -15,13 +15,18 @@ from io import BytesIO
 
 st.set_page_config(page_title="Ciné-Explorer", layout="wide")
 
-def reset_scroll():
-    # Utilisation de l'option experimental_rerun pour forcer un rechargement de la page
-    st.experimental_rerun()
+st.markdown("""
+<script>
+    // Fonction qui fait défiler la page vers le haut
+    function scrollToTop() {
+        window.scrollTo(0, 0);  // Force le défilement vers le haut
+    }
 
-# Enregistrer un clic ou une interaction de l'utilisateur
-if st.button('Cliquez pour réinitialiser la page'):
-    reset_scroll()
+    // Exécution de la fonction dès que la page est chargée ou mise à jour
+    window.onload = scrollToTop;
+    window.onbeforeunload = scrollToTop;
+</script>
+""", unsafe_allow_html=True)
 
 # Image fond écran :
 @st.cache_data
