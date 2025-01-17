@@ -157,27 +157,35 @@ st.markdown(
 
 # Chargement data :
 @st.cache_data
-def load_movie_data(json_file):
-    with open(json_file, "r", encoding="utf-8") as file:
-        return json.load(file)
+def load_parquet_from_github(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return pd.read_parquet(BytesIO(response.content))
+    else:
+        raise Exception(f"Erreur lors du téléchargement du fichier Parquet: {response.status_code}")
 
+@st.cache_data
+def load_json_from_github(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return json.loads(response.content)
+    else:
+        raise Exception(f"Erreur lors du téléchargement du fichier JSON: {response.status_code}")
 
-# Lien direct de téléchargement du fichier Google Drive
-file_id = '1cEo3sSPwn4y3FKnEYEaPK5f2PWHTUtgX'
-url = f'https://drive.google.com/uc?export=download&id={file_id}'
+# URLs GitHub pour les fichiers
+parquet_url = "https://github.com/Nathlake/Cine-explorer/raw/452256339231a899acf8f5a279e9aff777a4d998/df_ready.parquet"
+json_url = "https://raw.githubusercontent.com/Nathlake/Cine-explorer/20b22b442d12d432ac38c1c8ad306019e3934bc8/movie_data_with_videos.json"
 
-# Télécharger le fichier depuis Google Drive
-response = requests.get(url)
-
-# Vérifiez si la demande a réussi (code 200)
-if response.status_code == 200:
-    # Charger le fichier Parquet dans pandas à partir du contenu téléchargé
-    data = pd.read_parquet(BytesIO(response.content))
+try:
+    data = load_parquet_from_github(parquet_url)
     print(data.head())  # Affiche les premières lignes du dataframe
-else:
-    print(f"Erreur lors du téléchargement : {response.status_code}")
- 
-movie_data = load_movie_data("movie_data_with_videos.json")
+except Exception as e:
+    print(f"Erreur lors du chargement du fichier Parquet : {e}")
+
+try:
+    movie_data = load_json_from_github(json_url)
+except Exception as e:
+    print(f"Erreur lors du chargement du fichier JSON : {e}")
 
 with open('dict_voisins.json', 'r') as f:
     dict_voisins = json.load(f)
