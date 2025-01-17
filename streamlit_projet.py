@@ -14,6 +14,17 @@ from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
 st.set_page_config(page_title="Ciné-Explorer", layout="wide")
+st.markdown("""
+<script>
+document.addEventListener('click', function(e) {
+    // Vérifier si le clic n'est pas sur un élément interactif
+    if (!e.target.closest('button') && !e.target.closest('input') && !e.target.closest('select')) {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+});
+</script>
+""", unsafe_allow_html=True)
+
 
 # Image fond écran :
 @st.cache_data
