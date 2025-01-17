@@ -214,7 +214,6 @@ def get_poster_url(film_id):
     return DEFAULT_IMAGE_URL
 
 # Page Accueil :
-@st.cache_data
 def afficher_films(categorie, annee=None):
     genre_color_class = {
         "Drama": "top-10-drama",
@@ -331,7 +330,7 @@ def afficher_films(categorie, annee=None):
 
                 for _ in range(3):  # Ajoute trois sauts de ligne pour plus d'espacement entre les films
                     st.markdown("<br>", unsafe_allow_html=True)
-
+@st.cache_data
 def page_accueil():
     st.markdown("""
     <style>
