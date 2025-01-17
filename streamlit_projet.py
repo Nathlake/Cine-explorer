@@ -16,17 +16,17 @@ from io import BytesIO
 st.set_page_config(page_title="Ciné-Explorer", layout="wide")
 st.markdown("""
 <script>
-    // Fonction qui fait défiler la page vers le haut
-    function scrollToTop() {
-        window.scrollTo(0, 0);
+document.addEventListener('click', function(e) {
+    // Vérifiez que le clic n'est pas sur un élément interactif
+    if (!e.target.closest('button, input, select, a')) {
+        window.scrollTo({
+            top: 0, 
+            behavior: 'smooth'
+        });
     }
-    // Appel de la fonction après chaque interaction avec Streamlit (affichage de contenu ou changement d'état)
-    window.addEventListener("load", scrollToTop);
-    window.addEventListener("resize", scrollToTop);
-    window.addEventListener("scroll", scrollToTop);
+});
 </script>
 """, unsafe_allow_html=True)
-
 # Image fond écran :
 @st.cache_data
 def load_image_from_github(url):
