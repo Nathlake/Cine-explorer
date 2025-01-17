@@ -157,26 +157,22 @@ st.markdown(
 
 # Chargement data :
 @st.cache_data
-def load_movie_data(json_file):
-    with open(json_file, "r", encoding="utf-8") as file:
-        return json.load(file)
+def load_parquet_from_github(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return pd.read_parquet(BytesIO(response.content))
+    else:
+        raise Exception(f"Erreur lors du téléchargement du fichier: {response.status_code}")
 
+# URL GitHub pour le fichier df_ready.parquet
+github_url = "https://github.com/Nathlake/Cine-explorer/raw/452256339231a899acf8f5a279e9aff777a4d998/df_ready.parquet"
 
-# Lien direct de téléchargement du fichier Google Drive
-file_id = '1cEo3sSPwn4y3FKnEYEaPK5f2PWHTUtgX'
-url = f'https://drive.google.com/uc?export=download&id={file_id}'
-
-# Télécharger le fichier depuis Google Drive
-response = requests.get(url)
-
-# Vérifiez si la demande a réussi (code 200)
-if response.status_code == 200:
-    # Charger le fichier Parquet dans pandas à partir du contenu téléchargé
-    data = pd.read_parquet(BytesIO(response.content))
+try:
+    data = load_parquet_from_github(github_url)
     print(data.head())  # Affiche les premières lignes du dataframe
-else:
-    print(f"Erreur lors du téléchargement : {response.status_code}")
- 
+except Exception as e:
+    st.error(f"Erreur lors du chargement du fichier Parquet : {e}")
+
 movie_data = load_movie_data("movie_data_with_videos.json")
 
 with open('dict_voisins.json', 'r') as f:
