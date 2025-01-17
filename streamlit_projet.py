@@ -330,7 +330,7 @@ def afficher_films(categorie, annee=None):
 
                 for _ in range(3):  # Ajoute trois sauts de ligne pour plus d'espacement entre les films
                     st.markdown("<br>", unsafe_allow_html=True)
-@st.cache_data
+                    
 def page_accueil():
     st.markdown("""
     <style>
