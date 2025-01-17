@@ -14,19 +14,15 @@ from sklearn.neighbors import NearestNeighbors
 from io import BytesIO
 
 st.set_page_config(page_title="Ciné-Explorer", layout="wide")
-st.markdown("""
-<script>
-document.addEventListener('click', function(e) {
-    // Vérifiez que le clic n'est pas sur un élément interactif
-    if (!e.target.closest('button, input, select, a')) {
-        window.scrollTo({
-            top: 0, 
-            behavior: 'smooth'
-        });
-    }
-});
-</script>
-""", unsafe_allow_html=True)
+
+def reset_scroll():
+    # Utilisation de l'option experimental_rerun pour forcer un rechargement de la page
+    st.experimental_rerun()
+
+# Enregistrer un clic ou une interaction de l'utilisateur
+if st.button('Cliquez pour réinitialiser la page'):
+    reset_scroll()
+
 # Image fond écran :
 @st.cache_data
 def load_image_from_github(url):
