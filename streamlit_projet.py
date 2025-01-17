@@ -17,23 +17,20 @@ st.set_page_config(page_title="Ciné-Explorer", layout="wide")
 
 # Image fond écran :
 @st.cache_data
-def load_image_from_google_drive(file_id):
-    url = f"https://drive.google.com/uc?export=download&id={file_id}"
+def load_image_from_github(url):
     response = requests.get(url)
-    
     if response.status_code == 200:
         return base64.b64encode(response.content).decode()
     else:
-        raise Exception(f"Erreur lors du téléchargement de l'image: {response.status_code}")
+        raise Exception(f"Error downloading image: {response.status_code}")
 
-# ID du fichier Google Drive
-file_id = "1HBR7AwRD1U9TzldU5UbcmTlAfijdCkcz"
+# GitHub URL for the background image
+github_url = "https://github.com/Nathlake/Cine-explorer/raw/main/image_path.jpg"
 
 try:
-    image_base64 = load_image_from_google_drive(file_id)
-    # Utilisez image_base64 dans votre code CSS pour définir l'image de fond
+    image_base64 = load_image_from_github(github_url)
 except Exception as e:
-    st.error(f"Erreur lors du chargement de l'image de fond : {e}")
+    st.error(f"Error loading background image: {e}")
 
 # Personnalisation CSS :
 st.markdown(
