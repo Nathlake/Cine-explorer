@@ -311,7 +311,20 @@ def afficher_films(categorie, annee=None):
             unique_key = f"film_{categorie}_{film_id}_{idx}"
 
             with col:
-                # Ajouter un lien pour rediriger vers la page de détails du film
+                clicked = get_clicked(
+                    movie_data,
+                    [film_title],
+                    film_id,
+                    categorie,
+                    key_=True
+                )[1]
+                
+                if clicked:
+                    st.session_state.selected_film = film_title
+                    st.session_state.page = "details"
+                    st.rerun()
+
+            # Ajouter titre du film en dessous de l'image
                 st.markdown(f"""
         <div style='display: flex; justify-content: center; width: 100%;'>
             <p style='
@@ -330,6 +343,7 @@ def afficher_films(categorie, annee=None):
 
                 for _ in range(3):  # Ajoute trois sauts de ligne pour plus d'espacement entre les films
                     st.markdown("<br>", unsafe_allow_html=True)
+
 
                     
 def page_accueil():
