@@ -311,35 +311,25 @@ def afficher_films(categorie, annee=None):
             unique_key = f"film_{categorie}_{film_id}_{idx}"
 
             with col:
-                clicked = get_clicked(
-                    movie_data,
-                    [film_title],
-                    film_id,
-                    categorie,
-                    key_=True
-                )[1]
-                
-                if clicked:
-                    st.session_state.selected_film = film_title
-                    st.session_state.page = "details"
-                    st.rerun()
-
-            # Ajouter titre du film en dessous de l'image
+                # Ajouter un lien pour rediriger vers la page de détails du film
                 st.markdown(f"""
-        <div style='display: flex; justify-content: center; width: 100%;'>
-            <p style='
-                text-align: center; 
-                font-size: 16px; 
-                margin-top: 5px; 
-                font-weight: bold; 
-                max-width: calc(100% - 16px);
-                word-wrap: break-word;
-                line-height: 1.2;
-            '>
-                {film_title}
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
+                <div style='display: flex; justify-content: center; width: 100%;'>
+                    <a href="movie?movie_id={film_id}" style="text-decoration: none; color: inherit;" target="_self">
+                        <img src='https://image.tmdb.org/t/p/w200{poster_path}' class='movie-poster'>
+                        <p style='
+                            text-align: center; 
+                            font-size: 16px; 
+                            margin-top: 5px; 
+                            font-weight: bold; 
+                            max-width: calc(100% - 16px);
+                            word-wrap: break-word;
+                            line-height: 1.2;
+                        '>
+                            {film_title}
+                        </p>
+                    </a>
+                </div>
+                """, unsafe_allow_html=True)
 
                 for _ in range(3):  # Ajoute trois sauts de ligne pour plus d'espacement entre les films
                     st.markdown("<br>", unsafe_allow_html=True)
